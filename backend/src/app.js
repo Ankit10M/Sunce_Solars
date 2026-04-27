@@ -83,42 +83,6 @@ app.get('/health', (req, res) => {
     })
 })
 
-// if (process.env.NODE_ENV === 'development') {
-//   app.post('/dev/seed-user', async (req, res) => {
-//     try {
-//       const { default: User } = await import('./models/User.js');
-//       const { name, email, password, role } = req.body;
- 
-//       const existing = await User.findOne({ email });
-//       if (existing) {
-//         // If user already exists just update their role
-//         existing.role = role || existing.role;
-//         await existing.save({ validateBeforeSave: false });
-//         return res.status(200).json({
-//           success: true,
-//           message: `Existing user role updated to '${existing.role}'.`,
-//           user: { _id: existing._id, name: existing.name, email: existing.email, role: existing.role },
-//         });
-//       }
- 
-//       const user = await User.create({
-//         name:     name     || 'Dev User',
-//         email:    email    || 'dev@sunce.com',
-//         password: password || 'password123',
-//         role:     role     || 'admin',
-//       });
- 
-//       res.status(201).json({
-//         success: true,
-//         message: `User created with role '${user.role}'. Remove /dev/seed-user before production.`,
-//         user: { _id: user._id, name: user.name, email: user.email, role: user.role },
-//       });
-//     } catch (err) {
-//       res.status(500).json({ success: false, message: err.message });
-//     }
-//   });
-// }
-
 app.use('/api/v1/auth', authRouter)
 app.use('/api/v1/customers', customRouter)
 app.use('/api/v1/tickets', ticketRoute)
