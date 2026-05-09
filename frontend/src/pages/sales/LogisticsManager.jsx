@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react';
 import { MapPin, Calendar, Truck, Package, Phone, AlertCircle, Filter, Search } from 'lucide-react';
 import { api } from '../../contexts/AuthContext';
 import { toast } from 'react-toastify';
+import { SkeletonTableRow } from '../../components/skeletons';
+import { useDelayedLoading } from '../../hooks/useDelayedLoading';
 
 const StatusBadge = ({ status }) => {
   const statusMap = {
@@ -22,6 +24,7 @@ const StatusBadge = ({ status }) => {
 export default function LogisticsManager() {
   const [tickets, setTickets] = useState([]);
   const [loading, setLoading] = useState(true);
+  const showSkeleton = useDelayedLoading(loading);
   const [selectedTicket, setSelectedTicket] = useState(null);
   const [filters, setFilters] = useState({
     search: '',
@@ -311,10 +314,8 @@ export default function LogisticsManager() {
                   </tr>
                 </thead>
                 <tbody>
-                  {loading ? (
-                    <tr>
-                      <td colSpan="5" className="px-6 py-8 text-center text-slate-500">Loading...</td>
-                    </tr>
+                  {showSkeleton ? (
+                    Array.from({ length: 4 }).map((_, i) => <SkeletonTableRow key={i} cols={5} />)
                   ) : filteredTickets.length === 0 ? (
                     <tr>
                       <td colSpan="5" className="px-6 py-8 text-center text-slate-500">No logistics tickets found</td>

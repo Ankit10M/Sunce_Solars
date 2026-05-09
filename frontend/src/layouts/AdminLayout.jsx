@@ -44,7 +44,7 @@ export default function AdminLayout() {
   const navLinks = [
     { name: 'Analytics', path: '/admin', icon: <LayoutDashboard className="w-5 h-5 mr-3" /> },
     { name: 'Ticket Master', path: '/admin/tickets', icon: <FileText className="w-5 h-5 mr-3" /> },
-    { name: 'User Management', path: '/admin/users', icon: <Users className="w-5 h-5 mr-3" /> },
+    { name: 'Employee Management', path: '/admin/users', icon: <Users className="w-5 h-5 mr-3" /> },
     { name: 'Financial & AMC', path: '/admin/financial', icon: <TrendingUp className="w-5 h-5 mr-3" /> },
     { name: 'System Logs', path: '/admin/logs', icon: <History className="w-5 h-5 mr-3" /> },
   ];

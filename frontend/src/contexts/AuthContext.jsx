@@ -121,17 +121,30 @@ export function AuthProvider({ children }) {
   };
   if (loading) {
     return (
-      <div
-        style={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          height: "100vh",
-          fontSize: "14px",
-          color: "#666",
-        }}
-      >
-        Loading...
+      <div className="min-h-screen bg-slate-50 flex flex-col">
+        {/* Skeleton Navbar */}
+        <div className="bg-white border-b border-slate-200 h-16 flex items-center px-6 shadow-sm">
+          <div className="flex items-center gap-3">
+            <div className="w-8 h-8 bg-gradient-to-br from-amber-400 to-orange-500 rounded-lg animate-pulse" />
+            <div className="h-5 w-40 bg-slate-200 rounded-md animate-pulse" />
+          </div>
+          <div className="ml-auto flex items-center gap-4">
+            <div className="h-4 w-16 bg-slate-200 rounded animate-pulse hidden sm:block" />
+            <div className="h-4 w-16 bg-slate-200 rounded animate-pulse hidden sm:block" />
+            <div className="h-8 w-24 bg-slate-200 rounded-lg animate-pulse" />
+          </div>
+        </div>
+
+        {/* Skeleton Body */}
+        <div className="flex-1 flex items-center justify-center">
+          <div className="text-center space-y-4">
+            <div className="w-12 h-12 mx-auto bg-gradient-to-br from-amber-400 to-orange-500 rounded-xl animate-pulse" />
+            <div className="space-y-2">
+              <div className="h-4 w-48 bg-slate-200 rounded mx-auto animate-pulse" />
+              <div className="h-3 w-32 bg-slate-100 rounded mx-auto animate-pulse" />
+            </div>
+          </div>
+        </div>
       </div>
     );
   }

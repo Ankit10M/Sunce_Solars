@@ -35,6 +35,7 @@ import MasterTicketManagement from "./pages/admin/MasterTicketManagement";
 import UserManagement from "./pages/admin/UserManagement";
 import FinancialOversight from "./pages/admin/FinancialOversight";
 import SystemLogs from "./pages/admin/SystemLogs";
+import NotFound from "./pages/NotFound";
 
 function App() {
   return (
@@ -110,6 +111,9 @@ function App() {
               <Route path="/admin/logs" element={<SystemLogs />} />
             </Route>
           </Route>
+
+          {/* 404 Catch-All */}
+          <Route path="*" element={<NotFound />} />
         </Routes>
         </AuthProvider>
       </ThemeProvider>
