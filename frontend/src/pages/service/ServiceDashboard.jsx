@@ -18,6 +18,7 @@ import {
   ShieldCheck,
 } from "lucide-react";
 import { api, useAuth } from "../../contexts/AuthContext";
+import ServiceDashboardSkeleton from '../../components/skeletons/ServiceDashboardSkeleton';
 
 const ACCESSORY_OPTIONS = [
   "Remote",
@@ -2123,9 +2124,7 @@ Status: ${jobCard.repairDecision === "closed" ? "CLOSED" : "IN PROGRESS"}
             {/* Tickets List */}
             <div className="grid gap-4">
               {loading && (
-                <div className="text-center py-12 text-slate-500">
-                  Loading tickets...
-                </div>
+                <ServiceDashboardSkeleton />
               )}
 
               {!loading && tickets.length === 0 && (

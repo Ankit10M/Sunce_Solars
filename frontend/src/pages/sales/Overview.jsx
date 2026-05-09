@@ -4,6 +4,7 @@ import { Users, Truck, Wrench, ShieldCheck, Filter, Search, AlertCircle, CheckCi
 import { useAuth } from '../../contexts/AuthContext';
 import { api } from '../../contexts/AuthContext';
 import { toast } from 'react-toastify';
+import { SkeletonTableRow, SkeletonStatCard, SkeletonServiceReportCard, SkeletonMiniReportItem, SkeletonFilterBar } from '../../components/skeletons';
 
 // Reusable components
 const StatCard = ({ label, value, icon, bg }) => (
@@ -903,9 +904,7 @@ export default function Overview() {
             </thead>
             <tbody>
               {loading ? (
-                <tr>
-                  <td colSpan="7" className="px-6 py-8 text-center text-slate-500">Loading tickets...</td>
-                </tr>
+                Array.from({ length: 5 }).map((_, i) => <SkeletonTableRow key={i} cols={7} />)
               ) : filteredTickets.length === 0 ? (
                 <tr>
                   <td colSpan="7" className="px-6 py-8 text-center text-slate-500">No tickets found</td>

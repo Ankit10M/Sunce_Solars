@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth, api } from '../contexts/AuthContext';
 import { toast } from 'react-toastify';
+import CustomerProfileSkeleton from '../components/skeletons/CustomerProfileSkeleton';
 
 const inputClass = "w-full px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-red-400 bg-slate-50 text-slate-800 font-medium transition-all placeholder:text-slate-400 placeholder:font-normal";
 const labelClass = "block text-sm font-bold text-slate-700 mb-2";
@@ -383,14 +384,7 @@ export default function CustomerProfile() {
   };
 
   if (loading) {
-    return (
-      <div className="flex items-center justify-center min-h-screen">
-        <div className="text-center">
-          <Loader className="w-12 h-12 text-red-500 animate-spin mx-auto mb-4" />
-          <p className="text-slate-600 font-medium">Loading your profile...</p>
-        </div>
-      </div>
-    );
+    return <CustomerProfileSkeleton />;
   }
 
   return (

@@ -3,6 +3,7 @@ import { Ticket, DollarSign, Wrench, ShieldAlert, Loader, TrendingUp } from 'luc
 import { useEffect, useState, useCallback, useRef } from 'react';
 import { api } from '../../contexts/AuthContext.jsx';
 import { useTheme } from '../../contexts/ThemeContext.jsx';
+import { AdminDashboardSkeleton } from '../../components/skeletons';
 
 const PIE_COLORS = ['#f59e0b', '#3b82f6', '#10b981', '#8b5cf6', '#ef4444', '#06b6d4', '#ec4899', '#14b8a6'];
 
@@ -53,11 +54,7 @@ export default function DashboardOverview() {
   }, [revenuePeriod, fetchRevenue]);
 
   if (loading) {
-    return (
-      <div className={`flex justify-center items-center h-96 ${isDark ? 'bg-slate-900' : 'bg-white'}`}>
-        <Loader className="w-12 h-12 animate-spin text-brand-500" />
-      </div>
-    );
+    return <AdminDashboardSkeleton isDark={isDark} />;
   }
 
   const kpis = [

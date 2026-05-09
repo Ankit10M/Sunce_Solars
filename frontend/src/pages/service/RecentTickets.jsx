@@ -14,6 +14,7 @@ import {
   DownloadCloud,
 } from "lucide-react";
 import { api } from "../../contexts/AuthContext";
+import RecentTicketsSkeleton from '../../components/skeletons/RecentTicketsSkeleton';
 
 export default function RecentTickets() {
   const [completedTickets, setCompletedTickets] = useState([]);
@@ -309,10 +310,7 @@ For full details, expand the ticket section below.
 
       {/* Loading State */}
       {loading && (
-        <div className="text-center py-12">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-brand-600 mx-auto"></div>
-          <p className="text-slate-600 mt-4">Loading completed tickets...</p>
-        </div>
+        <RecentTicketsSkeleton />
       )}
 
       {/* Empty State */}

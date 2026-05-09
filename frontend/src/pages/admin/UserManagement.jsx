@@ -2,6 +2,7 @@ import { useEffect, useState, useRef, useMemo } from 'react';
 import { Shield, ShieldAlert, User, CheckCircle, XCircle, Loader, Check, X, Trash2, AlertTriangle, RefreshCw, ArrowRight, Ticket } from 'lucide-react';
 import { api } from "../../contexts/AuthContext";
 import { useTheme } from '../../contexts/ThemeContext';
+import { UserManagementSkeleton } from '../../components/skeletons';
 
 export default function UserManagement() {
   const { isDark } = useTheme();
@@ -270,11 +271,7 @@ export default function UserManagement() {
   }, [users]);
 
   if (loading) {
-    return (
-      <div className={`flex justify-center items-center h-96 ${isDark ? 'bg-slate-900' : 'bg-white'}`}>
-        <Loader className="w-12 h-12 animate-spin text-brand-500" />
-      </div>
-    );
+    return <UserManagementSkeleton isDark={isDark} />;
   }
 
   // ============ MODAL: Delete Confirmation with Ticket Check ============

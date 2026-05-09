@@ -2,6 +2,7 @@ import { useEffect, useState, useRef, useCallback } from 'react';
 import { Clock, Activity, Loader, Filter } from 'lucide-react';
 import { api } from '../../contexts/AuthContext';
 import { useTheme } from '../../contexts/ThemeContext';
+import { SystemLogsSkeleton } from '../../components/skeletons';
 
 export default function SystemLogs() {
   const { isDark } = useTheme();
@@ -75,11 +76,7 @@ export default function SystemLogs() {
   const uniqueTickets = [...new Set(allLogs.map(log => log.ticket?.ticketId))].filter(Boolean);
 
   if (loading) {
-    return (
-      <div className={`flex justify-center items-center h-96 ${isDark ? 'bg-slate-900' : 'bg-white'}`}>
-        <Loader className="w-12 h-12 animate-spin text-brand-500" />
-      </div>
-    );
+    return <SystemLogsSkeleton isDark={isDark} />;
   }
 
   return (

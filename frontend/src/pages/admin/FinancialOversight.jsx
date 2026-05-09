@@ -2,6 +2,7 @@ import { useEffect, useState, useRef, useCallback } from 'react';
 import { DollarSign, Cpu, TrendingUp, Calendar, Loader, FileDown, ShieldCheck, AlertTriangle } from 'lucide-react';
 import { api } from '../../contexts/AuthContext';
 import { useTheme } from '../../contexts/ThemeContext';
+import { FinancialOversightSkeleton } from '../../components/skeletons';
 
 export default function FinancialOversight() {
   const { isDark } = useTheme();
@@ -28,11 +29,7 @@ export default function FinancialOversight() {
   }, [fetchFinancialData]);
 
   if (loading) {
-    return (
-      <div className={`flex justify-center items-center h-96 ${isDark ? 'bg-slate-900' : 'bg-white'}`}>
-        <Loader className="w-12 h-12 animate-spin text-brand-500" />
-      </div>
-    );
+    return <FinancialOversightSkeleton isDark={isDark} />;
   }
 
   const totalRevenue = financial?.totalRevenue || 0;

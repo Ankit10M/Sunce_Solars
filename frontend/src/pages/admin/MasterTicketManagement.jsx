@@ -3,6 +3,7 @@ import { useReactTable, getCoreRowModel, flexRender, getPaginationRowModel, getF
 import { Search, Edit, Filter, X, Loader, CheckCircle, Activity, ArrowRight, Clock, History } from 'lucide-react';
 import { api } from '../../contexts/AuthContext';
 import { useTheme } from '../../contexts/ThemeContext';
+import { MasterTicketSkeleton } from '../../components/skeletons';
 
 const TICKET_STATUSES = [
   'ticket_created',
@@ -282,9 +283,7 @@ export default function MasterTicketManagement() {
         </div>
 
         {loading ? (
-          <div className="flex justify-center items-center h-96">
-            <Loader className="w-12 h-12 animate-spin text-brand-500" />
-          </div>
+          <MasterTicketSkeleton isDark={isDark} />
         ) : (
           <div className={`border rounded-lg overflow-hidden ${isDark ? 'border-slate-700' : 'border-slate-200'}`}>
             <div className="overflow-x-auto">
