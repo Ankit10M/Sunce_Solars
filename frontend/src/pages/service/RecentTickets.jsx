@@ -15,11 +15,13 @@ import {
 } from "lucide-react";
 import { api } from "../../contexts/AuthContext";
 import RecentTicketsSkeleton from '../../components/skeletons/RecentTicketsSkeleton';
+import { useDelayedLoading } from '../../hooks/useDelayedLoading';
 
 export default function RecentTickets() {
   const [completedTickets, setCompletedTickets] = useState([]);
   const [jobCardsMap, setJobCardsMap] = useState({});
   const [loading, setLoading] = useState(false);
+  const showSkeleton = useDelayedLoading(loading);
   const [expandedTicket, setExpandedTicket] = useState(null);
   const [message, setMessage] = useState({ type: "", text: "" });
   const [lastRefreshTime, setLastRefreshTime] = useState(0);
@@ -309,7 +311,7 @@ For full details, expand the ticket section below.
       )}
 
       {/* Loading State */}
-      {loading && (
+      {showSkeleton && (
         <RecentTicketsSkeleton />
       )}
 

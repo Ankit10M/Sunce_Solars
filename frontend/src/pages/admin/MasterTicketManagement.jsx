@@ -4,6 +4,7 @@ import { Search, Edit, Filter, X, Loader, CheckCircle, Activity, ArrowRight, Clo
 import { api } from '../../contexts/AuthContext';
 import { useTheme } from '../../contexts/ThemeContext';
 import { MasterTicketSkeleton } from '../../components/skeletons';
+import { useDelayedLoading } from '../../hooks/useDelayedLoading';
 
 const TICKET_STATUSES = [
   'ticket_created',
@@ -45,6 +46,7 @@ export default function MasterTicketManagement() {
   const { isDark } = useTheme();
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
+  const showSkeleton = useDelayedLoading(loading);
   const [globalFilter, setGlobalFilter] = useState('');
   const [statusFilter, setStatusFilter] = useState('All');
   const [selectedTicket, setSelectedTicket] = useState(null);
@@ -282,7 +284,7 @@ export default function MasterTicketManagement() {
           </div>
         </div>
 
-        {loading ? (
+        {showSkeleton ? (
           <MasterTicketSkeleton isDark={isDark} />
         ) : (
           <div className={`border rounded-lg overflow-hidden ${isDark ? 'border-slate-700' : 'border-slate-200'}`}>

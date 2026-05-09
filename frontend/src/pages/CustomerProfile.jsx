@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { useAuth, api } from '../contexts/AuthContext';
 import { toast } from 'react-toastify';
 import CustomerProfileSkeleton from '../components/skeletons/CustomerProfileSkeleton';
+import { useDelayedLoading } from '../hooks/useDelayedLoading';
 
 const inputClass = "w-full px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-red-400 bg-slate-50 text-slate-800 font-medium transition-all placeholder:text-slate-400 placeholder:font-normal";
 const labelClass = "block text-sm font-bold text-slate-700 mb-2";
@@ -383,7 +384,9 @@ export default function CustomerProfile() {
     });
   };
 
-  if (loading) {
+  const showSkeleton = useDelayedLoading(loading);
+
+  if (showSkeleton) {
     return <CustomerProfileSkeleton />;
   }
 

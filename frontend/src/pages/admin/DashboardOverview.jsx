@@ -4,6 +4,7 @@ import { useEffect, useState, useCallback, useRef } from 'react';
 import { api } from '../../contexts/AuthContext.jsx';
 import { useTheme } from '../../contexts/ThemeContext.jsx';
 import { AdminDashboardSkeleton } from '../../components/skeletons';
+import { useDelayedLoading } from '../../hooks/useDelayedLoading';
 
 const PIE_COLORS = ['#f59e0b', '#3b82f6', '#10b981', '#8b5cf6', '#ef4444', '#06b6d4', '#ec4899', '#14b8a6'];
 
@@ -53,7 +54,9 @@ export default function DashboardOverview() {
     fetchRevenue(revenuePeriod);
   }, [revenuePeriod, fetchRevenue]);
 
-  if (loading) {
+  const showSkeleton = useDelayedLoading(loading);
+
+  if (showSkeleton) {
     return <AdminDashboardSkeleton isDark={isDark} />;
   }
 

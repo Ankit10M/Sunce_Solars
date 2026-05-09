@@ -3,6 +3,7 @@ import { DollarSign, Cpu, TrendingUp, Calendar, Loader, FileDown, ShieldCheck, A
 import { api } from '../../contexts/AuthContext';
 import { useTheme } from '../../contexts/ThemeContext';
 import { FinancialOversightSkeleton } from '../../components/skeletons';
+import { useDelayedLoading } from '../../hooks/useDelayedLoading';
 
 export default function FinancialOversight() {
   const { isDark } = useTheme();
@@ -28,7 +29,9 @@ export default function FinancialOversight() {
     return () => { isMounted.current = false; };
   }, [fetchFinancialData]);
 
-  if (loading) {
+  const showSkeleton = useDelayedLoading(loading);
+
+  if (showSkeleton) {
     return <FinancialOversightSkeleton isDark={isDark} />;
   }
 

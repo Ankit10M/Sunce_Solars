@@ -3,6 +3,7 @@ import { Shield, ShieldAlert, User, CheckCircle, XCircle, Loader, Check, X, Tras
 import { api } from "../../contexts/AuthContext";
 import { useTheme } from '../../contexts/ThemeContext';
 import { UserManagementSkeleton } from '../../components/skeletons';
+import { useDelayedLoading } from '../../hooks/useDelayedLoading';
 
 export default function UserManagement() {
   const { isDark } = useTheme();
@@ -270,7 +271,9 @@ export default function UserManagement() {
     };
   }, [users]);
 
-  if (loading) {
+  const showSkeleton = useDelayedLoading(loading);
+
+  if (showSkeleton) {
     return <UserManagementSkeleton isDark={isDark} />;
   }
 

@@ -19,6 +19,7 @@ import {
 } from "lucide-react";
 import { api, useAuth } from "../../contexts/AuthContext";
 import ServiceDashboardSkeleton from '../../components/skeletons/ServiceDashboardSkeleton';
+import { useDelayedLoading } from '../../hooks/useDelayedLoading';
 
 const ACCESSORY_OPTIONS = [
   "Remote",
@@ -1383,6 +1384,8 @@ export default function ServiceDashboard() {
   const [selectedTicket, setSelectedTicket] = useState(null);
   const [jobCard, setJobCard] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [ticketsLoading, setTicketsLoading] = useState(true);
+  const showTicketsSkeleton = useDelayedLoading(ticketsLoading);
   const [message, setMessage] = useState({ type: "", text: "" });
   const [savedJobCardId, setSavedJobCardId] = useState('');
 
@@ -1436,7 +1439,7 @@ export default function ServiceDashboard() {
 
   const fetchTickets = async () => {
     try {
-      setLoading(true);
+      setTicketsLoading(true);
       const { data } = await api.get("/tickets");
       const allTickets = data.tickets || data.data || [];
       // Engineer should not see tickets submitted to sales or already dispatched/closed
@@ -1450,7 +1453,7 @@ export default function ServiceDashboard() {
         error.response?.data?.message || "Failed to load tickets",
       );
     } finally {
-      setLoading(false);
+      setTicketsLoading(false);
     }
   };
 
@@ -2123,11 +2126,11 @@ Status: ${jobCard.repairDecision === "closed" ? "CLOSED" : "IN PROGRESS"}
 
             {/* Tickets List */}
             <div className="grid gap-4">
-              {loading && (
+              {showTicketsSkeleton && (
                 <ServiceDashboardSkeleton />
               )}
 
-              {!loading && tickets.length === 0 && (
+              {!ticketsLoading && tickets.length === 0 && (
                 <div className="bg-white border-2 border-dashed border-slate-300 rounded-2xl p-12 text-center">
                   <AlertCircle className="w-12 h-12 text-slate-400 mx-auto mb-3" />
                   <p className="text-slate-600 font-medium">
@@ -2136,7 +2139,7 @@ Status: ${jobCard.repairDecision === "closed" ? "CLOSED" : "IN PROGRESS"}
                 </div>
               )}
 
-              {!loading &&
+              {!ticketsLoading &&
                 tickets.map((ticket) => (
                   <div
                     key={ticket._id}

@@ -3,6 +3,7 @@ import { Clock, Activity, Loader, Filter } from 'lucide-react';
 import { api } from '../../contexts/AuthContext';
 import { useTheme } from '../../contexts/ThemeContext';
 import { SystemLogsSkeleton } from '../../components/skeletons';
+import { useDelayedLoading } from '../../hooks/useDelayedLoading';
 
 export default function SystemLogs() {
   const { isDark } = useTheme();
@@ -75,7 +76,9 @@ export default function SystemLogs() {
 
   const uniqueTickets = [...new Set(allLogs.map(log => log.ticket?.ticketId))].filter(Boolean);
 
-  if (loading) {
+  const showSkeleton = useDelayedLoading(loading);
+
+  if (showSkeleton) {
     return <SystemLogsSkeleton isDark={isDark} />;
   }
 

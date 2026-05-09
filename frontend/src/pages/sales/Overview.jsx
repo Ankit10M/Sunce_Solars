@@ -5,6 +5,7 @@ import { useAuth } from '../../contexts/AuthContext';
 import { api } from '../../contexts/AuthContext';
 import { toast } from 'react-toastify';
 import { SkeletonTableRow, SkeletonStatCard, SkeletonServiceReportCard, SkeletonMiniReportItem, SkeletonFilterBar } from '../../components/skeletons';
+import { useDelayedLoading } from '../../hooks/useDelayedLoading';
 
 // Reusable components
 const StatCard = ({ label, value, icon, bg }) => (
@@ -555,6 +556,7 @@ export default function Overview() {
   const [tickets, setTickets] = useState([]);
   const [engineers, setEngineers] = useState([]);
   const [loading, setLoading] = useState(true);
+  const showSkeleton = useDelayedLoading(loading);
   const[serviceReports, setServiceReports]=useState([]);
   const [stats, setStats] = useState({
     total: 0,
@@ -903,7 +905,7 @@ export default function Overview() {
               </tr>
             </thead>
             <tbody>
-              {loading ? (
+              {showSkeleton ? (
                 Array.from({ length: 5 }).map((_, i) => <SkeletonTableRow key={i} cols={7} />)
               ) : filteredTickets.length === 0 ? (
                 <tr>
